@@ -75,6 +75,10 @@ param serviceType string = ''
 @description('The target port for the container')
 param targetPort int = 80
 
+// TODO: rename this to the actual name of the configuration node
+@description('Route configuration for the container app')
+param routes object = {}
+
 resource userIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = if (!empty(identityName)) {
   name: identityName
 }
@@ -93,7 +97,7 @@ module containerRegistryAccess '../security/registry-access.bicep' = if (usePriv
   }
 }
 
-resource app 'Microsoft.App/containerApps@2023-05-02-preview' = {
+resource app 'Microsoft.App/containerApps@2024-10-02-preview' = {
   name: name
   location: location
   tags: tags
@@ -117,6 +121,8 @@ resource app 'Microsoft.App/containerApps@2023-05-02-preview' = {
         corsPolicy: {
           allowedOrigins: union([ 'https://portal.azure.com', 'https://ms.portal.azure.com' ], allowedOrigins)
         }
+        // TODO: add the routes configuration here
+        // routes: routes
       } : null
       dapr: daprEnabled ? {
         enabled: true

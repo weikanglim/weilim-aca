@@ -36,6 +36,7 @@ module app '../core/host/container-app-upsert.bicep' = {
     identityType: 'UserAssigned'
     identityName: apiIdentity.name
     exists: exists
+    // TODO: pass through `routes`, or something similar here
     containerAppsEnvironmentName: containerAppsEnvironmentName
     containerRegistryName: containerRegistryName
     containerRegistryHostSuffix: containerRegistryHostSuffix

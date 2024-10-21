@@ -13,6 +13,11 @@ services:
     project: ./src/web
     language: js
     host: containerapp
+    # Force `azd` to use this API version.
+    # This will be removed in the future, right now intellisense may highlight this as an error, but it is not.
+    # To remove highlight errors, remove the first line in this document, i.e. the line that starts with "# yaml-language-server:"
+    apiVersion: 2024-10-02-preview #
+
   api:
     project: ./src/api
     language: python
